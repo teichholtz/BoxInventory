@@ -1,0 +1,5 @@
+{% extends 'inventory/base.html' %}
+{% block title %}Inventory Report | BoxInventory{% endblock %}
+{% block content %}<div class="actions no-print" style="justify-content:space-between;align-items:center"><h1>Inventory Report</h1><button class="btn" onclick="window.print()">Print report</button></div>
+<p class="muted">All boxes and the items recorded in each box.</p>
+{% for box in boxes %}<div class="panel"><h2>Box {{ box.box_number }}</h2>{% if box.notes %}<p>{{ box.notes }}</p>{% endif %}{% if box.items.all %}<ol>{% for item in box.items.all %}<li>{{ item.description }}</li>{% endfor %}</ol>{% else %}<p class="muted">No items recorded.</p>{% endif %}<a class="no-print" href="{% url 'box_report' box.pk %}">Individual box report</a></div>{% empty %}<div class="panel">No boxes have been entered yet.</div>{% endfor %}{% endblock %}

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}BoxInventory{% endblock %}</title>
+  <style>
+    :root{font-family:Arial,sans-serif;color:#202938;background:#f4f6f9}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1000px;margin:0 auto;padding:24px}.top{background:#183153;color:white}.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-size:23px;font-weight:bold;color:white;text-decoration:none}.nav a{color:white;margin-left:18px;text-decoration:none}.panel{background:white;border:1px solid #dce2ea;border-radius:10px;padding:22px;margin:18px 0}.stats{display:flex;gap:14px;flex-wrap:wrap}.stat{background:white;border:1px solid #dce2ea;border-radius:10px;padding:16px 22px;min-width:150px}.stat strong{display:block;font-size:25px;margin-top:5px}.btn{display:inline-block;background:#245b9e;color:white;padding:10px 15px;border:0;border-radius:6px;text-decoration:none;cursor:pointer;font-size:14px}.btn.secondary{background:#64748b}.btn.danger{background:#b42318}.btn.small{padding:6px 10px;font-size:13px}input,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:6px;font:inherit;margin:6px 0 14px}label{font-weight:bold}table{width:100%;border-collapse:collapse;background:white}th,td{text-align:left;padding:12px;border-bottom:1px solid #e5eaf0;vertical-align:top}th{background:#f8fafc}.messages{padding:12px;background:#e8f6ed;border-radius:6px}.muted{color:#64748b}.actions{display:flex;gap:8px;flex-wrap:wrap}.search{display:flex;gap:8px}.search input{margin:0}.empty{padding:20px;text-align:center;color:#64748b}@media print{.top,.no-print,.messages{display:none!important}body{background:white}.wrap{max-width:none;padding:0}.panel{border:0;padding:0}}
+  </style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="{% url 'dashboard' %}">BoxInventory</a><nav class="nav"><a href="{% url 'dashboard' %}">Inventory</a><a href="{% url 'reports' %}">Reports</a></nav></div></header>
+<main class="wrap">
+{% if messages %}{% for message in messages %}<div class="messages">{{ message }}</div>{% endfor %}{% endif %}
+{% block content %}{% endblock %}
+</main>
+</body></html>

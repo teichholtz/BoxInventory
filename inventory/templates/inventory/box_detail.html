@@ -1,0 +1,8 @@
+{% extends 'inventory/base.html' %}
+{% block title %}Box {{ box.box_number }} | BoxInventory{% endblock %}
+{% block content %}
+<div class="actions" style="justify-content:space-between;align-items:center"><div><h1>Box {{ box.box_number }}</h1><p class="muted">{{ box.item_count }} item{{ box.item_count|pluralize }}</p></div><div class="actions no-print"><a class="btn secondary" href="{% url 'box_report' box.pk %}">View / print report</a><a class="btn danger" href="{% url 'delete_box' box.pk %}">Delete box</a></div></div>
+{% if box.notes %}<p>{{ box.notes|linebreaksbr }}</p>{% endif %}
+<div class="panel"><h2>Items in this box</h2>{% if box.items.all %}<table><thead><tr><th>Description</th><th class="no-print">Actions</th></tr></thead><tbody>{% for item in box.items.all %}<tr><td>{{ item.description }}</td><td class="no-print"><div class="actions"><a class="btn small secondary" href="{% url 'edit_item' item.pk %}">Edit</a><form method="post" action="{% url 'delete_item' item.pk %}" onsubmit="return confirm('Delete this item?')">{% csrf_token %}<button class="btn small danger" type="submit">Delete</button></form></div></td></tr>{% endfor %}</tbody></table>{% else %}<p class="empty">There are no items in this box yet.</p>{% endif %}</div>
+<div class="panel no-print"><h2>Add an item</h2><form method="post">{% csrf_token %}<label for="{{ form.description.id_for_label }}">Item description</label>{{ form.description }}{{ form.description.errors }}<button class="btn" type="submit">Add item</button></form></div>
+<p><a href="{% url 'dashboard' %}">← Back to all boxes</a></p>{% endblock %}

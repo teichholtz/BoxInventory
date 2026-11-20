@@ -1,0 +1,9 @@
+{% extends 'inventory/base.html' %}
+{% block title %}Inventory | BoxInventory{% endblock %}
+{% block content %}
+<h1>Storage Inventory</h1>
+<div class="stats"><div class="stat">Boxes<strong>{{ box_count }}</strong></div><div class="stat">Items<strong>{{ item_count }}</strong></div></div>
+<div class="panel"><div class="actions" style="justify-content:space-between;align-items:center"><h2>Boxes</h2><a class="btn" href="{% url 'add_box' %}">+ Add a box</a></div>
+<form class="search no-print" method="get"><input name="q" value="{{ query }}" placeholder="Search box number or item description"><button class="btn" type="submit">Search</button>{% if query %}<a class="btn secondary" href="{% url 'dashboard' %}">Clear</a>{% endif %}</form>
+{% if boxes %}<table><thead><tr><th>Box number</th><th>Items</th><th>Contents preview</th><th></th></tr></thead><tbody>{% for box in boxes %}<tr><td><a href="{% url 'box_detail' box.pk %}"><strong>{{ box.box_number }}</strong></a></td><td>{{ box.item_count }}</td><td>{% for item in box.items.all|slice:":3" %}{{ item.description }}{% if not forloop.last %}, {% endif %}{% empty %}<span class="muted">No items yet</span>{% endfor %}{% if box.item_count > 3 %}…{% endif %}</td><td><a class="btn small" href="{% url 'box_detail' box.pk %}">Open</a></td></tr>{% endfor %}</tbody></table>{% else %}<div class="empty">{% if query %}No boxes or items matched your search.{% else %}No boxes have been added yet. Select “Add a box” to get started.{% endif %}</div>{% endif %}
+</div>{% endblock %}
